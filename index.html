@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¿Pertenece a Jaén?</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #1a3c7c;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 1rem;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #1a3c7c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #142d5c;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Comprobar Municipio</h1>
+  <form id="formulario">
+    <input type="text" id="municipioInput" placeholder="Escribe un municipio..." required>
+    <button type="submit">Comprobar</button>
+  </form>
+
+  <div id="resultado"></div>
+
+  <script>
+    const municipiosJaen = [
+      "Albanchez de Mágina", "Alcalá la Real", "Alcaudete", "Aldeaquemada", "Andújar", "Arjona", "Arjonilla",
+      "Arquillos", "Baeza", "Bailén", "Baños de la Encina", "Beas de Segura", "Begíjar", "Bélmez de la Moraleda",
+      "Benatae", "Cabra del Santo Cristo", "Cambil", "Campillo de Arenas", "Canena", "Carboneros",
+      "Cárcheles", "La Carolina", "Castellar", "Castillo de Locubín", "Cazalilla", "Cazorla",
+      "Chiclana de Segura", "Chilluévar", "Escañuela", "Espeluy", "Frailes", "Fuensanta de Martos",
+      "Fuerte del Rey", "Génave", "La Guardia de Jaén", "Guarromán", "Higuera de Calatrava",
+      "Hinojares", "Hornos", "Huelma", "Huesa", "Ibros", "La Iruela", "Iznatoraf", "Jabalquinto",
+      "Jaén", "Jamilena", "Jimena", "Jódar", "Lahiguera", "Larva", "Linares", "Lopera", "Lupión",
+      "Mancha Real", "Marmolejo", "Martos", "Mengíbar", "Montizón", "Navas de San Juan",
+      "Noalejo", "Orcera", "Peal de Becerro", "Pegalajar", "Porcuna", "Pozo Alcón", "Puente de Génave",
+      "La Puerta de Segura", "Quesada", "Rus", "Sabiote", "Santa Elena", "Santiago de Calatrava",
+      "Santiago-Pontones", "Santisteban del Puerto", "Santo Tomé", "Segura de la Sierra", "Siles",
+      "Sorihuela del Guadalimar", "Torreblascopedro", "Torredelcampo", "Torredonjimeno", "Torreperogil",
+      "Torres", "Torres de Albánchez", "Úbeda", "Valdepeñas de Jaén", "Vilches", "Villacarrillo",
+      "Villanueva de la Reina", "Villanueva del Arzobispo", "Villardompardo", "Los Villares", "Villarrodrigo",
+      "Villatorres"
+    ];
+
+    function normalizar(texto) {
+      return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
+
+    document.getElementById('formulario').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const entrada = normalizar(document.getElementById('municipioInput').value.trim());
+      const resultado = document.getElementById('resultado');
+
+      const pertenece = municipiosJaen.some(muni => normalizar(muni) === entrada);
+
+      if (pertenece) {
+        resultado.textContent = "✅ El municipio pertenece a Jaén.";
+        resultado.style.color = "green";
+      } else {
+        resultado.textContent = "❌ El municipio NO pertenece a Jaén.";
+        resultado.style.color = "red";
+      }
+    });
+  </script>
+
+</body>
+</html>
